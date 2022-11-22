@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t balrajsingh/mynode .
+
+script:
+  - docker run -d -p 8001:8001 --name balrajsingh/mynode -e CI=true
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $ACCESS_KEY_ID
+  secret_access_key: 
+    secure: "$SECRET_ACCESS_KEY"
+  region: "ca-central-1"
+  app: "docker-mynode"
+  env: "Dockermynode-env"
+  bucket_name: "elasticbeanstalk-ca-central-1-208622770616"
+  bucket_path: "docker-mynode"
+  on:
+    branch: master
