@@ -6,7 +6,7 @@ before_install:
   - docker build -t balrajsingh/mynode .
 
 script:
-  - docker run -d -p 8001:8001 --name balrajsingh/mynode -e CI=true
+  - docker run -e CI=true balrajsingh/mynode
 
 deploy:
   provider: elasticbeanstalk
